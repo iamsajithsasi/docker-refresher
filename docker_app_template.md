@@ -1,4 +1,4 @@
-### angular
+## Angular
 
 +Dockerfile:
 ```
@@ -19,6 +19,21 @@ $ sudo docker build -t angularapp:v1 .
 $ sudo docker run -p 4200:4200 angularapp:v1
 ```
 
-### react
+## React
+
 ```
+FROM node:14.17.6-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN yarn install
+COPY . .
+EXPOSE 3000
+CMD yarn start --host 0.0.0.0
+```
+
+Commands
+
+```
+$ sudo docker build -t reactapp:v1 .
+$ sudo docker run -p 3000:3000 reactapp:v1
 ```
