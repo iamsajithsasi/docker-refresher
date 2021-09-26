@@ -11,9 +11,9 @@ ADD api.zip . // add can extract zip files
 ADD http://bootstrap4.min.css . // add the file from url
 RUN npm install
 ENV token=12345678
-EXPOSE 3000 // container port
+EXPOSE 9999 // container port
 CMD npm start
-PORT 3001:3008
+PORT 3000:9999 // host_port:container_port
 ```
 ### Commands
 
