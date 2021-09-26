@@ -12,8 +12,7 @@ EXPOSE 4200
 CMD ng serve --host 0.0.0.0
 ```
 
-Commands
-
+Commands:
 ```
 $ sudo docker build -t angularapp:v1 .
 $ sudo docker run -p 4200:4200 angularapp:v1
@@ -21,6 +20,7 @@ $ sudo docker run -p 4200:4200 angularapp:v1
 
 ## React
 
++Dockerfile:
 ```
 FROM node:14.17.6-alpine
 WORKDIR /app
@@ -31,8 +31,7 @@ EXPOSE 3000
 CMD yarn start --host 0.0.0.0
 ```
 
-Commands
-
+Commands:
 ```
 $ sudo docker build -t reactapp:v1 .
 $ sudo docker run -p 3000:3000 reactapp:v1
