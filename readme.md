@@ -13,7 +13,6 @@ RUN npm install
 ENV token=12345678
 EXPOSE 9999 // container port
 CMD npm start
-PORT 3000:9999 // host_port:container_port
 ```
 ### Commands
 
