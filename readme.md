@@ -6,6 +6,7 @@ FROM node:14.17.6-alpine
 RUN addgroup myapp && adduser -S -G myapp user_app // -s: system user, -g:group
 USER user_app
 WORKDIR /app
+RUN mkdir app_data // for volumes
 COPY . . // copy all cur_dir to work_dir
 ADD api.zip . // add can extract zip files
 ADD http://bootstrap4.min.css . // add the file from url
@@ -32,12 +33,27 @@ $ docker run imageid/image_app_name // run create container
 $ docker run -it imageid/image_app_name sh // sh (or) bash
 $ docker run -d imageid/image_app_name // detach mode
 $ docker run -p 8080:3000 imageid/image_app_name // local_port:container_port
-$ docker exec -it imageid/image_app_name sh // run commands without exiting container
+$ docker run -p 8080:3000 -v $(pwd):/app imageid/image_app_name // refresh on dev changes
+$ docker exec -it container_id sh // run commands without exiting container
 $ docker start container_id // start on existing container
 $ docker start -i container_id // intractive
+$ docker cp container_id:app/app_data .
 $ docker kill container_id
 $ docker stop container_id
-$ docker logs container_id
+$ docker logs -f container_id // -f logs the changes
+
+Volume:
+$ docker volume create mydata
+$ docker volume inspect mydata
+$ docker run -d -p 8080:3000 -v mydata:app/app_data imageid/image_app_name
+$ docker
+$ docker
+$ docker
+$ docker
+$ docker
+$ docker
+$ docker
+$ docker
 
 Image from DockerHub:
 $ docker run ubuntu
@@ -56,6 +72,7 @@ $ docker run -it ubuntu
 -d:     detach mode
 -it:    Interactive mode
 -p:     port
+-f:     follow
 ```
 
 
