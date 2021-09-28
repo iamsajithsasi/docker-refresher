@@ -15,6 +15,34 @@ ENV token=12345678
 EXPOSE 9999 // container port
 CMD npm start
 ```
+### Setup Docker compose
+
+```
+version: "3.8" // as per docker engine version
+services:
+    frontend:                   // can be any name
+        build: ./frontend       // build image point to dockerfile
+        context: my_app
+        dockerfile: Dockerfile.dev
+        ports:
+            -3000:3000
+    backend:
+        build: ./backend
+        ports:
+            -3000:3000
+        environment: 
+            DB_URL: mongodb://db/my_app_volume
+    database:
+        image: mongo:4.0-xenial // pull image from doc hub
+        ports:
+            -27017:27017
+        volumes:
+            - my_app_volume:/data/db
+
+volumes:
+  my_app_volume:
+```
+
 ### Commands
 
 ```
@@ -31,6 +59,7 @@ $ docker ps (or) -a
 $ docker container prune // remove all stopped container
 $ docker run imageid/image_app_name // run create container
 $ docker run -it imageid/image_app_name sh // sh (or) bash
+$ docker run -it -u root imageid/image_app_name sh // as a user
 $ docker run -d imageid/image_app_name // detach mode
 $ docker run -p 8080:3000 imageid/image_app_name // local_port:container_port
 $ docker run -p 8080:3000 -v $(pwd):/app imageid/image_app_name // refresh on dev changes
@@ -46,14 +75,13 @@ Volume:
 $ docker volume create mydata
 $ docker volume inspect mydata
 $ docker run -d -p 8080:3000 -v mydata:app/app_data imageid/image_app_name
-$ docker
-$ docker
-$ docker
-$ docker
-$ docker
-$ docker
-$ docker
-$ docker
+
+
+Compose:
+$ docker-compose up
+$ docker-compose up --no-cache
+$ docker-compose ps -a
+$ docker-compose down
 
 Image from DockerHub:
 $ docker run ubuntu
@@ -73,6 +101,7 @@ $ docker run -it ubuntu
 -it:    Interactive mode
 -p:     port
 -f:     follow
+-u:     user
 ```
 
 
@@ -106,6 +135,8 @@ COPY package*.json .
 RUN npm install
 COPY . .
 ```
+
+Docker compose version https://docs.docker.com/compose/compose-file/
 
 ### Linux basic
 
